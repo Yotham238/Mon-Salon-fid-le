@@ -4,10 +4,460 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Salon Fidèle - Fidélisez vos clientes automatiquement</title>
-    ...
-    <!-- Le reste du code est trop long pour être affiché ici, mais il sera inclus dans le fichier -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        peach: {
+                            50: '#FFF5F2',
+                            100: '#FFEBE5',
+                            200: '#FFD5C2',
+                            300: '#FFBF9F',
+                            400: '#FF947C',
+                            500: '#FF6B59',
+                            600: '#E64D4D',
+                            700: '#CC3333',
+                            800: '#B31A1A',
+                            900: '#990000',
+                        },
+                        coral: {
+                            50: '#FFF5F5',
+                            100: '#FFEBEB',
+                            200: '#FFD1D1',
+                            300: '#FFB7B7',
+                            400: '#FF8A8A',
+                            500: '#FF6B6B',
+                            600: '#E64D4D',
+                            700: '#CC3333',
+                            800: '#B31A1A',
+                            900: '#990000',
+                        },
+                        blush: {
+                            50: '#FFF9FB',
+                            100: '#FFF3F7',
+                            200: '#FFE1EB',
+                            300: '#FFCFDF',
+                            400: '#FFAAC7',
+                            500: '#FF85AF',
+                            600: '#E66796',
+                            700: '#CC4A7D',
+                            800: '#B32D64',
+                            900: '#99104B',
+                        },
+                        champagne: {
+                            50: '#FFFCF9',
+                            100: '#FFF9F3',
+                            200: '#FFF0E1',
+                            300: '#FFE7CF',
+                            400: '#FFD5AA',
+                            500: '#FFC385',
+                            600: '#E6A86E',
+                            700: '#CC8C57',
+                            800: '#B37040',
+                            900: '#995429',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes countUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #FF85AF, #FFC385);
+        }
+        
+        .phone-mockup {
+            transform: rotate(-5deg);
+            transition: transform 0.3s ease;
+        }
+        
+        .phone-mockup:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #FF85AF, #FF6B6B);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 10px 25px rgba(255, 133, 175, 0.4);
+            transform: translateY(-3px);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+        
+        .feature-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-fixed {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 50;
+            background: white;
+            padding: 8px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .result-amount {
+            animation: countUp 1s ease-out;
+        }
+        
+        .simulateur-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #FF85AF, transparent);
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
 </head>
-<body>
-    ...
+<body class="font-sans text-gray-800 bg-peach-50">
+    <!-- Logo fixé en haut à gauche -->
+    <div class="logo-fixed">
+        <img src="https://postimg.cc/v4j5Rhg9" alt="Mon Salon Fidèle" class="h-12">
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-bg min-h-screen relative overflow-hidden pt-12">
+        <div class="container mx-auto px-6 py-20 flex flex-col lg:flex-row items-center justify-between">
+            <div class="lg:w-1/2 mb-16 lg:mb-0 text-center lg:text-left">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                    Fidélisez vos clientes avec <span class="text-champagne-100">Mon Salon Fidèle</span>
+                </h1>
+                <p class="text-xl text-white opacity-90 mb-8">
+                    Transformez votre salon avec un simple QR Code. Automatisez vos relances, boostez vos revenus et offrez une image professionnelle à vos clientes.
+                </p>
+                <div class="flex justify-center lg:justify-start">
+                    <a href="#simulateur" class="btn-primary text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg transition-all duration-300">
+                        Calculer mes gains
+                    </a>
+                </div>
+            </div>
+            <div class="lg:w-1/2 flex justify-center relative">
+                <div class="phone-mockup bg-white p-6 rounded-3xl shadow-2xl max-w-xs">
+                    <div class="w-40 h-40 mx-auto bg-blush-500 rounded-lg flex items-center justify-center text-white font-bold mb-4">
+                        <i class="fas fa-qrcode text-5xl"></i>
+                    </div>
+                    <p class="text-center font-bold text-lg text-gray-800">Scannez & Fidélisez</p>
+                    <p class="text-center text-gray-600">Automatisation complète</p>
+                    <div class="absolute -bottom-6 -left-6 bg-champagne-500 text-blush-700 px-4 py-2 rounded-full font-bold text-sm transform rotate-6">
+                        Nouveau !
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulateur Section -->
+    <section id="simulateur" class="py-20 bg-gradient-to-b from-peach-50 to-peach-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-blush-700 mb-4">Calculez votre potentiel de revenus</h2>
+                <p class="text-xl text-blush-600 max-w-2xl mx-auto">
+                    Découvrez combien vous pouvez gagner chaque mois grâce à la fidélisation automatique
+                </p>
+            </div>
+
+            <div class="max-w-2xl mx-auto bg-white bg-opacity-95 backdrop-blur-lg rounded-3xl p-8 md:p-10 shadow-xl border-2 border-blush-300 relative overflow-hidden simulateur-container">
+                <div class="text-center mb-10">
+                    <h3 class="text-2xl font-bold bg-gradient-to-r from-blush-500 to-coral-500 bg-clip-text text-transparent mb-2">
+                        <i class="fas fa-calculator mr-2"></i> Simulateur de gains
+                    </h3>
+                    <p class="text-blush-600">Analysez votre retour sur investissement</p>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-blush-700 font-semibold mb-2">
+                            Combien de nouvelles clientes scannent votre QR code par mois ?
+                        </label>
+                        <input type="number" id="nouvelles-clientes" class="w-full px-5 py-4 border-2 border-peach-300 rounded-xl focus:border-blush-500 focus:ring-2 focus:ring-blush-200 transition-all" min="0" value="10" placeholder="Ex: 10">
+                    </div>
+
+                    <div>
+                        <label class="block text-blush-700 font-semibold mb-2">
+                            Combien d'anciennes clientes inactives récupérez-vous par mois ?
+                        </label>
+                        <input type="number" id="anciennes-clientes" class="w-full px-5 py-4 border-2 border-peach-300 rounded-xl focus:border-blush-500 focus:ring-2 focus:ring-blush-200 transition-all" min="0" value="5" placeholder="Ex: 5">
+                    </div>
+
+                    <div>
+                        <label class="block text-blush-700 font-semibold mb-2">
+                            Prix moyen d'une prestation dans votre salon
+                        </label>
+                        <input type="number" id="prix-prestation" class="w-full px-5 py-4 border-2 border-peach-300 rounded-xl focus:border-blush-500 focus:ring-2 focus:ring-blush-200 transition-all" min="0" value="45" placeholder="Ex: 45">
+                    </div>
+
+                    <button onclick="calculerGain()" class="w-full btn-primary text-white py-4 px-6 rounded-xl font-bold text-lg shadow-lg transition-all duration-300 relative overflow-hidden">
+                        <i class="fas fa-magic mr-2"></i> Calculer mes gains mensuels
+                    </button>
+
+                    <div id="results" class="opacity-0 translate-y-5 transition-all duration-500">
+                        <div class="bg-gradient-to-br from-blush-50 to-blush-100 rounded-2xl p-6 mb-6 border-l-4 border-blush-500 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-20 h-20 bg-blush-200 rounded-full opacity-20 -mr-4 -mt-4"></div>
+                            <div id="resultat" class="text-5xl font-bold text-blush-600 text-center mb-2 result-amount"></div>
+                            <p class="text-center text-blush-600 mb-6">Revenus supplémentaires mensuels estimés</p>
+
+                            <div class="bg-white bg-opacity-80 p-5 rounded-xl border border-blush-100">
+                                <h4 class="text-lg font-semibold text-blush-600 mb-4 text-center">
+                                    <i class="fas fa-chart-pie mr-2"></i> Détail des calculs
+                                </h4>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between py-2 border-b border-peach-200">
+                                        <span class="text-blush-700">Nouvelles clientes × Prix moyen</span>
+                                        <span id="gain-nouvelles" class="font-semibold">-</span>
+                                    </div>
+                                    <div class="flex justify-between py-2 border-b border-peach-200">
+                                        <span class="text-blush-700">Anciennes clientes × Prix moyen</span>
+                                        <span id="gain-anciennes" class="font-semibold">-</span>
+                                    </div>
+                                    <div class="flex justify-between py-2 border-b border-peach-200">
+                                        <span class="text-blush-700">Total des gains</span>
+                                        <span id="total-gains" class="font-semibold">-</span>
+                                    </div>
+                                    <div class="flex justify-between py-2 border-b border-peach-200">
+                                        <span class="text-blush-700">Coût Mon Salon Fidèle</span>
+                                        <span>-49€</span>
+                                    </div>
+                                    <div class="flex justify-between py-2 pt-4 font-bold text-blush-600">
+                                        <span>Bénéfice net</span>
+                                        <span id="benefice-net">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="conclusion" class="text-center p-5 rounded-xl font-semibold text-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-blush-700 mb-4">Pourquoi adopter Mon Salon Fidèle ?</h2>
+                <p class="text-xl text-blush-600 max-w-2xl mx-auto">
+                    Une solution complète pour révolutionner votre relation client
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl border-2 border-blush-100 hover:border-blush-300 transition-all duration-300 hover:-translate-y-2">
+                    <div class="feature-icon text-5xl text-blush-500 mb-6">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-blush-700 mb-4">Gain de temps</h3>
+                    <p class="text-blush-600">
+                        Fini les relances manuelles ! Vos messages se déclenchent automatiquement aux moments clés.
+                    </p>
+                </div>
+
+                <div class="feature-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl border-2 border-coral-100 hover:border-coral-300 transition-all duration-300 hover:-translate-y-2">
+                    <div class="feature-icon text-5xl text-coral-500 mb-6">
+                        <i class="fas fa-euro-sign"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-blush-700 mb-4">Revenus augmentés</h3>
+                    <p class="text-blush-600">
+                        Récupérez 30% de clientes inactives grâce à nos relances intelligentes personnalisées.
+                    </p>
+                </div>
+
+                <div class="feature-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl border-2 border-peach-100 hover:border-peach-300 transition-all duration-300 hover:-translate-y-2">
+                    <div class="feature-icon text-5xl text-peach-500 mb-6">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-blush-700 mb-4">Image professionnelle</h3>
+                    <p class="text-blush-600">
+                        Offrez une expérience moderne avec votre QR Code et votre page de présentation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how-it-works" class="py-20 bg-gradient-to-b from-peach-100 to-peach-200">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-blush-700 mb-4">Comment ça marche ?</h2>
+                <p class="text-xl text-blush-600 max-w-2xl mx-auto">
+                    3 étapes simples pour révolutionner votre salon
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-20 h-20 mx-auto bg-gradient-to-r from-blush-500 to-coral-500 text-white text-3xl font-bold rounded-full flex items-center justify-center shadow-lg mb-6">
+                        1
+                    </div>
+                    <h3 class="text-2xl font-bold text-blush-700 mb-4">Placez votre QR Code</h3>
+                    <p class="text-blush-600">
+                        Notre équipe vient installer physiquement le QR Code dans votre salon et vous forme à son utilisation.
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-20 h-20 mx-auto bg-gradient-to-r from-blush-500 to-coral-500 text-white text-3xl font-bold rounded-full flex items-center justify-center shadow-lg mb-6">
+                        2
+                    </div>
+                    <h3 class="text-2xl font-bold text-blush-700 mb-4">Collecte automatique</h3>
+                    <p class="text-blush-600">
+                        Vos clientes remplissent un formulaire rapide : prénom, anniversaire, préférences.
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-20 h-20 mx-auto bg-gradient-to-r from-blush-500 to-coral-500 text-white text-3xl font-bold rounded-full flex items-center justify-center shadow-lg mb-6">
+                        3
+                    </div>
+                    <h3 class="text-2xl font-bold text-blush-700 mb-4">Fidélisation intelligente</h3>
+                    <p class="text-blush-600">
+                        Messages automatiques : anniversaires, relances, promotions personnalisées.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="py-20 bg-gradient-to-r from-blush-500 to-coral-500">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Prêt à révolutionner votre salon ?</h2>
+            <p class="text-xl text-white opacity-90 mb-8 max-w-2xl mx-auto">
+                Rejoignez les professionnels qui automatisent leur fidélisation et augmentent leurs revenus.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://denae58955.preview.softr.app/paiement?autoUser=true&show-toolbar=true" class="btn-primary text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg transition-all duration-300 relative overflow-hidden">
+                    Essai gratuit 30 jours
+                </a>
+                <a href="https://wa.me/33769285469" class="btn-secondary text-white px-8 py-4 rounded-full font-bold text-lg transition-all duration-300">
+                    <i class="fab fa-whatsapp mr-2"></i> Nous contacter (07 69 28 54 69)
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Fonction pour animer un nombre
+        function animateNumber(element, finalValue, suffix = '') {
+            const duration = 1000;
+            const startValue = 0;
+            const increment = finalValue / (duration / 16);
+            let currentValue = startValue;
+            
+            const timer = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= finalValue) {
+                    currentValue = finalValue;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(currentValue).toLocaleString('fr-FR') + suffix;
+            }, 16);
+        }
+
+        function calculerGain() {
+            const nouvellesClientes = parseInt(document.getElementById('nouvelles-clientes').value) || 0;
+            const anciennesClientes = parseInt(document.getElementById('anciennes-clientes').value) || 0;
+            const prixPrestation = parseFloat(document.getElementById('prix-prestation').value) || 0;
+            const abonnement = 49;
+            
+            // Calculs détaillés
+            const gainNouvelles = nouvellesClientes * prixPrestation;
+            const gainAnciennes = anciennesClientes * prixPrestation;
+            const totalGains = gainNouvelles + gainAnciennes;
+            const beneficeNet = totalGains - abonnement;
+            
+            // Mise à jour des éléments
+            const resultsDiv = document.getElementById('results');
+            const resultatDiv = document.getElementById('resultat');
+            const conclusionDiv = document.getElementById('conclusion');
+            
+            // Mise à jour du détail des calculs
+            document.getElementById('gain-nouvelles').textContent = gainNouvelles.toLocaleString('fr-FR') + '€';
+            document.getElementById('gain-anciennes').textContent = gainAnciennes.toLocaleString('fr-FR') + '€';
+            document.getElementById('total-gains').textContent = totalGains.toLocaleString('fr-FR') + '€';
+            document.getElementById('benefice-net').textContent = beneficeNet.toLocaleString('fr-FR') + '€';
+            
+            // Afficher les résultats avec animation
+            resultsDiv.classList.remove('opacity-0', 'translate-y-5');
+            resultsDiv.classList.add('opacity-100', 'translate-y-0');
+            
+            // Animation du chiffre principal
+            animateNumber(resultatDiv, totalGains, "€");
+            
+            // Conclusion avec logique complète
+            let conclusion = "";
+            let conclusionClass = "";
+            
+            if (beneficeNet > 200) {
+                conclusion = `<span class="emoji">🚀</span> Excellent ! Vous gagnez ${beneficeNet.toLocaleString('fr-FR')}€ net par mois avec notre solution.`;
+                conclusionClass = "bg-gradient-to-br from-green-100 to-green-200 text-green-800 border-green-300";
+            } else if (beneficeNet > 0) {
+                conclusion = `<span class="emoji">👍</span> Bien ! Notre solution vous rapporte ${beneficeNet.toLocaleString('fr-FR')}€ net par mois.`;
+                conclusionClass = "bg-gradient-to-br from-yellow-100 to-yellow-200 text-yellow-800 border-yellow-300";
+            } else {
+                conclusion = `<span class="emoji">🤔</span> Avec ${nouvellesClientes} nouvelles clientes, notre solution n'est pas encore rentable pour vous. Augmentez votre visibilité !`;
+                conclusionClass = "bg-gradient-to-br from-red-100 to-red-200 text-red-800 border-red-300";
+            }
+            
+            conclusionDiv.innerHTML = conclusion;
+            conclusionDiv.className = `conclusion p-5 rounded-xl font-semibold text-lg text-center border-2 ${conclusionClass}`;
+        }
+
+        // Smooth scrolling pour les liens
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
